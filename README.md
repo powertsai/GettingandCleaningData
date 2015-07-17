@@ -18,18 +18,19 @@ setwd("/Users/powertsai/Dropbox/R/CleaningData") #work directory with "UCI HAR D
 
 ### Install libraries used
 ```
-library(dplyr) 
-library(data.table), if set useFread = TRUE in run_analysis.R 
 #require dplyr
-install.packages("dplyr")        #install the CRAN version
-#require data.table 1.9.5 to use fread on Mac OS X
+install.packages("dplyr") 
+library(dplyr) 
+#require data.table develop version 1.9.5 
 remove.packages("data.table")         # First remove the current version
 library(devtools)    
 install_github("Rdatatable/data.table", build_vignettes = FALSE)  # install 1.9.5 develop version
+library(data.table) 
 ```
 
 ### Reference
 1.[use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators)
+
 1.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
 
