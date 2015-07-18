@@ -25,15 +25,6 @@ source("run_analysis.R")
 trainData <- mergetData()
 ```
 
-
-
-### Reference
-1.[Use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators)
-
-1.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
-Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
-1.[Github Markdown](https://guides.github.com/features/mastering-markdown/)
-
 ### Time elapsed
 method |  user  | system | elapsed  
 ------ | ------ | ------ | -------
@@ -42,5 +33,13 @@ method |  user  | system | elapsed
 * mthoed 1: use sed to convert tab file to csv then using fread to read data file
 * method 2: use read.table to read data file
 
+
+### Reference
+1.[Use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators)
+
+2.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
+
+3.[Github Markdown](https://guides.github.com/features/mastering-markdown/)
  
 
