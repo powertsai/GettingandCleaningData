@@ -5,9 +5,18 @@
 1. Uses descriptive activity names to name the activities in the data set
 1. Appropriately labels the data set with descriptive variable names. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+#Attribute Information:
+#For each record in the dataset it is provided: 
+#- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration. 
+#- Triaxial Angular velocity from the gyroscope. 
+#- 
+#- Its activity label. 
+#- An identifier of the subject who carried out the experiment.
+
+
 ### function created to merge data
-1. getFeaturesData extract X_train.tat, x_test.txt with feature name with(mean|std), I get data required for step 3 only 
 1. getActivityData extract y_train.txt, y_test.txt and convert activity with its label name
+1. getFeaturesData extract A 561-feature variables, and then select the feature name with(mean|std) 
 1. getSubjectData extract subject_train.txt, subject_test.txt
 1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation for each 128 reading data
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
