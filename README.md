@@ -5,15 +5,7 @@
 1. Uses descriptive activity names to name the activities in the data set
 1. Appropriately labels the data set with descriptive variable names. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-#Attribute Information:
-#For each record in the dataset it is provided: 
-
-#- 
-#- Its activity label. 
-#- An identifier of the subject who carried out the experiment.
-
-
-### function created to merge data
+### function defined in run_analysis.R to created the merge data and tidy data 
 1. getData combine the train/test data into one data.table
   1. getDataTable read data file to data.table
 1. getActivityData extract y_train.txt, y_test.txt convert to descriptive activity label name
@@ -28,8 +20,15 @@
   1. "body_gyro_x", "body_gyro_y", "body_gyro_z"
   1. "total_acc_x", "total_acc_y", "total_acc_z"
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
+1. getTidyData convert the data to another tidy data set with the average of each variable for each activity and each subject
+  1. codebook for merge data
+  1. codebook for tidy data
 
-### Install libraries used
+### Install libraries before running run_analysis.R
+using 3 packages 
+1. dplyr select column
+1. data.table(1.9.5) required OS support sed to convert 
+1. convert merge data to tidy 
 ```
 * require dplyr
 install.packages("dplyr") 
