@@ -1,13 +1,13 @@
 Tidy Data Code Book
 1. subject: the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-2. activity
+1. activity
   1. WALKING
-  2. WALKING_UPSTAIRS
-  3. WALKING_DOWNSTAIRS
-  4. SITTING
-  5. STANDING
-  6.LAYING
-3. measurement
+  1. WALKING_UPSTAIRS
+  1. WALKING_DOWNSTAIRS
+  1. SITTING
+  1. STANDING
+  1.LAYING
+1. measurement
    1.tbodyaccmeanx : tBodyAcc-mean()-X
    2.tbodyaccmeany : tBodyAcc-mean()-Y
    3.tbodyaccmeanz : tBodyAcc-mean()-Z
