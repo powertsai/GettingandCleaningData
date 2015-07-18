@@ -15,8 +15,7 @@ trainTriaxialDir = paste(traindir, "Inertial Signals", sep="/")
 # set the Train Inertial Signals
 testTriaxialDir = paste(testdir, "Inertial Signals", sep="/") 
 
-# set tidy data set full file path
-tidyfilepath = "tidyData.txt"
+
 
 # pattern to find the features of mean and standard deviation
 # I use "mean()| std()" to find the features for this case
@@ -151,7 +150,7 @@ getTriaxialDataMeanSd <- function(
 #set Column Name to Subject
 getSubjectData <- function() {
         trainData <-  getData( trainfile = "subject_train.txt", testfile = "subject_test.txt", chkColumns = 1)
-        setNames(trainData , "Subject") 
+        setNames(trainData , "subject") 
 }
 
 #get Activity Data from "y_train.txt" and  "y_test.txt"
@@ -161,7 +160,7 @@ getActivityData <- function() {
         #change activity to descriptive activity label name
         actLabelNames <- apply(ytrain, 1, getLabelName)
         
-        setNames(data.table(actLabelNames), "Activity")
+        setNames(data.table(actLabelNames), "activity")
 }
 
 
@@ -223,19 +222,17 @@ mergetData <- function() {
 #Summaryize value with Mean(value)
 #write tidydata to file at defined tidyfilepath
 getTidyData <- function(mergeData) {
-        #melt data.table to subject, activity, measurement, value
-        meltData <- melt(mergeData, id=c("Subject","Activity"),
-             measure.vars=names(trainData)[3:length(names(trainData))]) 
+        #use  reshape2 to melt data.table to subject, activity, variable, value
+        meltData <- melt(mergeData, id=c("subject","activity"),
+             measure.vars=names(mergeData)[3:length(names(mergeData))]) 
         #set descriptive column names 
-        meltData <- setNames(tidyData, c("subject","activity","measurement", "value"))
-        print(paste("dim(TidyData)",dim(tidyData)))
+        meltData <- setNames(meltData, c("subject","activity","measurement", "value"))
+        #use dplyr to summarize mean for each subject,activity, measurement
         tidyData <- meltData %>%  
         #group by subject,activity, measurement
         group_by(subject,activity, measurement)  %>%
         #summarise by mean for each value
         summarise(mean = mean(value)) 
-        print(paste("dim(TidyData)",dim(tidyData)))
-        #write tidy data to define filepathy
-        write.table(tidyData, tidyfilepath, quote = FALSE, col.names = TRUE, row.names = FALSE)
+       
         return (tidyData)
 }
