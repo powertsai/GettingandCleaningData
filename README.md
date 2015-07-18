@@ -36,7 +36,8 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 ### Time elapsed
 1. mthoed 1 use sed to convert tab file to csv then using fread to read data file
 2. method 2 use read.table to read data file
-method-  user  - system - elapsed  
+method |  user  | system | elapsed  
+------ | ------ | ------ | -------
 1.sedFread | 26.778 |  1.120 | 28.847 
 2.read.table| 45.769 |  0.537 |46.517 
  
