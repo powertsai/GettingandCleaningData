@@ -28,7 +28,7 @@ print(paste("useFread", useFread, sep="= "))
 #get activity label from "activity_labels.txt" 
 getActivityLabels <- function(chkRows = 6) {
         activitylabels <-  read.table(activityLabelFile, header=FALSE)
-        order(activitylabels[,1])
+        activitylabels <- activitylabels[order(activitylabels[,1]), ]
         if(dim(activitylabels)[1] != chkRows) {
                 stop("invalid activity_labels") 
         }
@@ -39,17 +39,19 @@ getActivityLabels <- function(chkRows = 6) {
 labels = getActivityLabels()
 #convert activities variable to descriptive activity label name
 getLabelName <- function(x) {
-        labels[as.numeric(x)]
+        paste(x,labels[as.numeric(x)],sep=".")
 }
 
 #get 561 Features name "features.txt"
 getFeatures <- function(chkRows = 561) {
         features <-  read.table(featureFile, header=FALSE)
-        order(features[,1])
+        features <- features[order(features[,1]),]
         if(dim(features)[1] != chkRows) {
                 stop("invalid features") 
         }
-        return (as.vector(features[,2]))
+        featureNames <- paste(features[,1], features[,2], sep=".")
+        
+        return (featureNames)
 }
 
 #getDataTable function used to read data file to data.table
@@ -114,24 +116,24 @@ getMeanStdFeatures <- function(features = getFeatures()) {
 # Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 # Triaxial Angular velocity from the gyroscope. 
 getTriaxialDataMeanSd <- function(
-                    triaxialName,
-                    trainfile = paste(triaxialName,"train.txt", sep="_"),
-                    testfile = paste(triaxialName,"test.txt", sep="_") ){
+        triaxialName,
+        trainfile = paste(triaxialName,"train.txt", sep="_"),
+        testfile = paste(triaxialName,"test.txt", sep="_") ){
         # read Triaxial train file to data frame and convert to data.table
         xtrain <- getDataTable(paste(trainTriaxialDir, trainfile, sep="/"))
-
-         # read Triaxial test file to data frame and convert to data.table
+        
+        # read Triaxial test file to data frame and convert to data.table
         xtest  <- getDataTable(paste(testTriaxialDir, testfile, sep="/"))
         
         # combine train set to one data table
         xTriaxialSet <-rbind.data.frame(xtrain, xtest)
-
+        
         # check columns size 
         chkColumns = 128
         if(dim(xTriaxialSet)[2] != chkColumns) {
                 stop("invalid Triaxial Train/Test Set") 
         }
-
+        
         # create row mean for each train/test set 
         triaialMean <-  rowSums(xTriaxialSet) 
         
@@ -142,7 +144,7 @@ getTriaxialDataMeanSd <- function(
         # set column names
         names(triaialMeanStd) <- c(paste(triaxialName, "mean", sep="_"), 
                                    paste(triaxialName, "std", sep="_"))
-
+        
         data.table(triaialMeanStd)
 }
 
@@ -195,17 +197,17 @@ mergetData <- function() {
         actLabelNames <- getActivityData()
         #2.Activity Label Name
         trainData <- cbind(trainData, actLabelNames)
-
+        
         #get A 561-feature vector with time and frequency domain variables
         #column name with mean / std
         xtrain <- getFeaturesData()
         trainData <- cbind(trainData, xtrain)
-
+        
         #Read Inertial Signals data for each sensor
         triaxialNames <- c("body_acc_x","body_acc_y","body_acc_z", 
                            "body_gyro_x", "body_gyro_y", "body_gyro_z",
                            "total_acc_x", "total_acc_y", "total_acc_z"
-                           )
+        )
         
         #for each sensor get the the Mean and Standard Deviation from 128 reading data 
         #cbind the data to trainData
@@ -214,7 +216,7 @@ mergetData <- function() {
                 trainData <- cbind(trainData, triaxialMeanStd)        
         }
         return (trainData)
-
+        
 }
 
 #use shape2 library to melt merge data 
@@ -224,15 +226,15 @@ mergetData <- function() {
 getTidyData <- function(mergeData) {
         #use  reshape2 to melt data.table to subject, activity, variable, value
         meltData <- melt(mergeData, id=c("subject","activity"),
-             measure.vars=names(mergeData)[3:length(names(mergeData))]) 
+                         measure.vars=names(mergeData)[3:length(names(mergeData))]) 
         #set descriptive column names 
         meltData <- setNames(meltData, c("subject","activity","measurement", "value"))
         #use dplyr to summarize mean for each subject,activity, measurement
         tidyData <- meltData %>%  
-        #group by subject,activity, measurement
-        group_by(subject,activity, measurement)  %>%
-        #summarise by mean for each value
-        summarise(mean = mean(value)) 
-       
+                #group by subject,activity, measurement
+                group_by(subject,activity, measurement)  %>%
+                #summarise by mean for each value
+                summarise(mean = mean(value)) 
+        
         return (tidyData)
 }
