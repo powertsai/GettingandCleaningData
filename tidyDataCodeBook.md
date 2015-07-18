@@ -8,18 +8,18 @@
   1. 5.STANDING
   1. 6.LAYING
 1. measurement
-   1.tbodyaccmeanx : tBodyAcc-mean()-X
-   2.tbodyaccmeany : tBodyAcc-mean()-Y
-   3.tbodyaccmeanz : tBodyAcc-mean()-Z
-   4.tbodyaccstdx : tBodyAcc-std()-X
-   5.tbodyaccstdy : tBodyAcc-std()-Y
-   6.tbodyaccstdz : tBodyAcc-std()-Z
-   41.tgravityaccmeanx : tGravityAcc-mean()-X
-   42.tgravityaccmeany : tGravityAcc-mean()-Y
-   43.tgravityaccmeanz : tGravityAcc-mean()-Z
-   44.tgravityaccstdx : tGravityAcc-std()-X
-   45.tgravityaccstdy : tGravityAcc-std()-Y
-   46.tgravityaccstdz : tGravityAcc-std()-Z
+  1. 1.tbodyaccmeanx : tBodyAcc-mean()-X
+  1. 2.tbodyaccmeany : tBodyAcc-mean()-Y
+  1. 3.tbodyaccmeanz : tBodyAcc-mean()-Z
+  1. 4.tbodyaccstdx : tBodyAcc-std()-X
+  1. 5.tbodyaccstdy : tBodyAcc-std()-Y
+  1. 6.tbodyaccstdz : tBodyAcc-std()-Z
+  1. 41.tgravityaccmeanx : tGravityAcc-mean()-X
+  1. 42.tgravityaccmeany : tGravityAcc-mean()-Y
+  1. 43.tgravityaccmeanz : tGravityAcc-mean()-Z
+  1. 44.tgravityaccstdx : tGravityAcc-std()-X
+  1. 45.tgravityaccstdy : tGravityAcc-std()-Y
+  1. 46.tgravityaccstdz : tGravityAcc-std()-Z
    81.tbodyaccjerkmeanx : tBodyAccJerk-mean()-X
    82.tbodyaccjerkmeany : tBodyAccJerk-mean()-Y
    83.tbodyaccjerkmeanz : tBodyAccJerk-mean()-Z
@@ -92,5 +92,4 @@
    total_acc_y_std : standard deviation of the 128 reading on total_acc_y
    total_acc_z_mean : mean of the 128 reading on total_acc_z
    total_acc_z_std : standard deviation of the 128 reading on total_acc_z
-4. mean
-   the average of each measurement for each activity and each subject.
+4. mean: the average of each measurement for each activity and each subject.
