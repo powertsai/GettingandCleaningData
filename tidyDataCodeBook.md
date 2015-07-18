@@ -1,4 +1,4 @@
-Tidy Data Code Book
+###Tidy Data Code Book
 1. subject: the subject who performed the activity for each window sample. Its range is from 1 to 30. 
 1. activity:
   1. WALKING
