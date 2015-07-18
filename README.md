@@ -32,13 +32,15 @@ trainData <- mergetData()
 
 1.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
+1.[Github Markdown](https://guides.github.com/features/mastering-markdown/)
 
 ### Time elapsed
-1. mthoed 1 use sed to convert tab file to csv then using fread to read data file
-2. method 2 use read.table to read data file
 method |  user  | system | elapsed  
 ------ | ------ | ------ | -------
    1   | 26.778 |  1.120 | 28.847 
    2   | 45.769 |  0.537 | 46.517 
+* mthoed 1: use sed to convert tab file to csv then using fread to read data file
+* method 2: use read.table to read data file
+
  
 
