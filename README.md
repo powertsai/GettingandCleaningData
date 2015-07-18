@@ -34,14 +34,10 @@ library(data.table)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
 
 ### Time elapsed
-1. function use sed to convert tab file to csv then using fread to read data file
-> useFread = TRUE    #
-> system.time(trainData <- mergetData())
-   user  system elapsed 
- 26.778   1.120  28.847 
-2. function use read.table to read data file
-> useFread = FALSE   #use read.table to get data and convet to data.table
-> system.time(trainData <- mergetData())
-   user  system elapsed 
- 45.769   0.537  46.517 
+1. mthoed 1 use sed to convert tab file to csv then using fread to read data file
+2. method 2 use read.table to read data file
+method-  user  - system - elapsed  
+1.sedFread | 26.778 |  1.120 | 28.847 
+2.read.table| 45.769 |  0.537 |46.517 
+ 
 
