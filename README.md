@@ -7,8 +7,7 @@
 
 #Attribute Information:
 #For each record in the dataset it is provided: 
-#- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration. 
-#- Triaxial Angular velocity from the gyroscope. 
+
 #- 
 #- Its activity label. 
 #- An identifier of the subject who carried out the experiment.
@@ -24,7 +23,10 @@
   1. getFeatures read 561 features names from "features.txt"
   1. getMeanStdFeatures grep the index of feature name with get "Mean" and "Std"
 1. getSubjectData extract subject_train.txt, subject_test.txt
-1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation for each 128 reading data
+1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation of each 128 reading data for each triaxialName 
+  1. "body_acc_x", "body_acc_y","body_acc_z"
+  1. "body_gyro_x", "body_gyro_y", "body_gyro_z"
+  1. "total_acc_x", "total_acc_y", "total_acc_z"
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
 
 ### Install libraries used
