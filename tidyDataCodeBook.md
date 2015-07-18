@@ -1,14 +1,13 @@
 Tidy Data Code Book
-1.subject
-  the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-2.activity
-  1 WALKING
-  2 WALKING_UPSTAIRS
-  3 WALKING_DOWNSTAIRS
-  4 SITTING
-  5 STANDING
-  6 LAYING
-3.measurement
+1. subject: the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+2. activity
+  1. WALKING
+  2. WALKING_UPSTAIRS
+  3. WALKING_DOWNSTAIRS
+  4. SITTING
+  5. STANDING
+  6.LAYING
+3. measurement
    1.tbodyaccmeanx : tBodyAcc-mean()-X
    2.tbodyaccmeany : tBodyAcc-mean()-Y
    3.tbodyaccmeanz : tBodyAcc-mean()-Z
@@ -93,5 +92,5 @@ Tidy Data Code Book
    total_acc_y_std : standard deviation of the 128 reading on total_acc_y
    total_acc_z_mean : mean of the 128 reading on total_acc_z
    total_acc_z_std : standard deviation of the 128 reading on total_acc_z
-4.mean
+4. mean
    the average of each measurement for each activity and each subject.
