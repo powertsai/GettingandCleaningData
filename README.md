@@ -1,17 +1,18 @@
 ### Courese: Getting and Cleaning Data 
-We are assigned to complete the course project with some objectives
+We are assigned to complete the course project with some objectives:
 1. You should create one R script called run_analysis.R that does the following. 
 1. Merges the training and the test sets to create one data set.
+1. Extracts only the measurements on the mean and standard deviation for each measurement. 
+1. Uses descriptive activity names to name the activities in the data set
+1. Appropriately labels the data set with descriptive variable names. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+### How to merge data
 
   1. getFeaturesData extract X_train.tat, x_test.txt with feature name with(mean|std), I get data required for step 3 only 
   2. getActivityData extract y_train.txt, y_test.txt and convert activity with its label name
   3. getSubjectData extract subject_train.txt, subject_test.txt
   4. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation for each 128 reading data
   5. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
-
-1. Extracts only the measurements on the mean and standard deviation for each measurement. 
-1. Uses descriptive activity names to name the activities in the data set
-1. Appropriately labels the data set with descriptive variable names. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 ### Install libraries used
 ```
