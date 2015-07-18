@@ -1,6 +1,4 @@
-### Courese: Getting and Cleaning Data 
-
-We are assigned to complete the course project with some objectives:
+### Courese project objectives:
 1. You should create one R script called run_analysis.R that does the following. 
 1. Merges the training and the test sets to create one data set.
 1. Extracts only the measurements on the mean and standard deviation for each measurement. 
