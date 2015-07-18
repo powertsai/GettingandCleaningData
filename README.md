@@ -20,9 +20,9 @@ library(data.table)
 
 ### How to Create  
 ```
-1. setwd("/Users/powertsai/Dropbox/R/CleaningData") #work directory with "UCI HAR Dataset" and run_analysis.R
-1. source("run_analysis.R")
-1. trainData <- mergetData()
+setwd("/Users/powertsai/Dropbox/R/CleaningData") #work directory with "UCI HAR Dataset" and run_analysis.R
+source("run_analysis.R")
+trainData <- mergetData()
 ```
 
 
@@ -38,7 +38,7 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 2. method 2 use read.table to read data file
 method |  user  | system | elapsed  
 ------ | ------ | ------ | -------
-1.sedFread | 26.778 |  1.120 | 28.847 
-2.read.table| 45.769 |  0.537 |46.517 
+   1   | 26.778 |  1.120 | 28.847 
+   2   | 45.769 |  0.537 | 46.517 
  
 
