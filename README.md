@@ -15,8 +15,14 @@
 
 
 ### function created to merge data
-1. getActivityData extract y_train.txt, y_test.txt and convert activity with its label name
-1. getFeaturesData extract A 561-feature variables, and then select the feature name with(mean|std) 
+1. getData combine the train/test data into one data.table
+  1. getDataTable read data file to data.table
+1. getActivityData extract y_train.txt, y_test.txt convert to descriptive activity label name
+  1. getActivityLabels get activity label from "activity_labels.txt" 
+  1. getLabelName convert activities value to its label name
+1. getFeaturesData extract X_train.txt, test.test to get 561-feature variables, and select feature name with (mean|std) 
+  1. getFeatures read 561 features names from "features.txt"
+  1. getMeanStdFeatures grep the index of feature name with get "Mean" and "Std"
 1. getSubjectData extract subject_train.txt, subject_test.txt
 1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation for each 128 reading data
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
