@@ -40,12 +40,22 @@ library(dplyr)
 #library(data.table) 
 ```
 
-### How to Create  
+### How to call run_analysis.R to create tidy data to review  
 ```
-setwd("/Users/powertsai/Dropbox/R/CleaningData") #work directory with "UCI HAR Dataset" and run_analysis.R
+setwd("/Users/YourWorkDirectory")  #work directory With UCI HAR Dataset and run_analysis.R
 source("run_analysis.R")
-trainData <- mergetData()
-tidyData <- getTidyData(trainData)
+#merge data files in one data set
+system.time(mergeData <- mergetData())
+#get independent tidy data set with the average of each variable for each activity and each subject.
+system.time(tidyData <- getTidyData(mergeData))
+# Write tidy data to tidyfilepath
+tidyfilepath = "tidyData.txt"
+write.table(tidyData, tidyfilepath, quote = FALSE, col.names = TRUE, row.names = FALSE)
+data <- read.table(tidyfilepath, header = TRUE)
+#View tidy data created 
+View(data))
+#delete the tidy data file
+file.remove(tidyfilepath)
 ```
 
 ### Time elapsed
@@ -58,7 +68,7 @@ method |  user  | system | elapsed
 
 
 ### Reference
-1.[Use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators) I found this post that helps me to use fread to read data file
+1.[Use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators) I found this article that helped me to use fread to read data file
 
 2.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
