@@ -19,9 +19,9 @@
   1. "body_acc_x", "body_acc_y","body_acc_z"
   1. "body_gyro_x", "body_gyro_y", "body_gyro_z"
   1. "total_acc_x", "total_acc_y", "total_acc_z"
-1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd, detail columns see cookbook
-1. getTidyData convert the data to another tidy data set with the average of each variable for each activity and each subject
+1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd
   1. codebook for merge data
+1. getTidyData convert the data to another tidy data set with the average of each variable for each activity and each subject
   1. codebook for tidy data
 
 ### Install libraries before running run_analysis.R
