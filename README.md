@@ -11,10 +11,10 @@
 1. getActivityData extract y_train.txt, y_test.txt convert to descriptive activity label name
   1. getActivityLabels get activity label from "activity_labels.txt" 
   1. getLabelName convert activities value to its label name
-1. getFeaturesData extract X_train.txt, test.test to get 561-feature variables, and select feature name with (mean|std) 
+1. getFeaturesData extract X_train.txt, x_test.test to get 561-feature variables, and select feature name with (mean|std) 
   1. getFeatures read 561 features names from "features.txt"
   1. getMeanStdFeatures grep the index of feature name with get "Mean" and "Std"
-1. getSubjectData extract subject_train.txt, subject_test.txt
+1. getSubjectData extract subject_train.txt, subject_test.txt to get the subject who performed the activity
 1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation of each 128 reading data for each triaxialName 
   1. "body_acc_x", "body_acc_y","body_acc_z"
   1. "body_gyro_x", "body_gyro_y", "body_gyro_z"
