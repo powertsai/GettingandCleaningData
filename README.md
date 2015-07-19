@@ -13,7 +13,8 @@
   1. getLabelName convert activities value to its label name
 1. getFeaturesData extract X_train.txt, x_test.test to get 561-feature variables, and select feature name with (mean|std) 
   1. getFeatures read 561 features names from "features.txt"
-  1. getMeanStdFeatures grep the index of feature name with get "Mean" and "Std"
+  1. getMeanStdFeatures grep the index of feature name with get "Mean()" and "Std()"
+  1. changeDescriptiveName to change feature to be more descriptive (lowercase, remove(), substitute non(a-zA-Z0-9) to .
 1. getSubjectData extract subject_train.txt, subject_test.txt to get the subject who performed the activity
 1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation of each 128 reading data for each triaxialName 
   1. "body_acc_x", "body_acc_y","body_acc_z"
@@ -90,11 +91,10 @@ method |  user  | system | elapsed
 
 
 ### Reference
-1.[Use sed and fread ](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators) I found this article that helped me to use fread to read data file
-
-2.[Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+1. [David's personal course project FAQ](https://class.coursera.org/getdata-030/forum/thread?thread_id=37)
+2. [Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
+3. [Github Markdown]How to use Markdown at Github (https://guides.github.com/features/mastering-markdown/)
 
-3.[Github Markdown]How to use Markdown at Github (https://guides.github.com/features/mastering-markdown/)
  
 
