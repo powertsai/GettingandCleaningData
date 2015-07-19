@@ -15,7 +15,13 @@ trainTriaxialDir = paste(traindir, "Inertial Signals", sep="/")
 # set the Train Inertial Signals
 testTriaxialDir = paste(testdir, "Inertial Signals", sep="/") 
 
+# if version is 1.9.5 set Flag True to use fread to read data
+useFread = FALSE
+useFread = (packageVersion("data.table")  == "1.9.5" )
 
+# if support sed, using it to convert data format to csv
+osPlatform <- R.version$platform
+supportSed = length(grep('x86_64-apple', osPlatform)) > 0
 
 # pattern to find the features of mean and standard deviation
 # I use "mean()| std()" to find the features for this case
@@ -51,27 +57,47 @@ getFeatures <- function(chkRows = 561) {
         return (featureNames)
 }
 
+#convertToCsvFormat convert tab delimeter to common separated sheet format
+convertTabToCsv <- function(data){
+        csvData <-gsub("\\s+", ",", data)
+        csvData <- gsub("^,","", csvData)
+        return (csvData)
+}
+
 #getDataTable function used to read data file to data.table
 #read first 5 rows to get column classes first
 #If useFread = TRUE, sed to convert tab to csv format and then using fread to read data
 #If useFread = FALSE, call data.table to read data
 getDataTable <- function(origfile) {
-        #embrace filename with ''
-        useFread = (packageVersion("data.table") == "1.9.5" )
+        #get first 5 rows to get column classes
+        x <- read.table(origfile,  nrows=5, header=FALSE)
+        col.classes <- sapply(x, class)
+        print(paste("data.table version support fread:", useFread))
         if(useFread) {
-                #fileName = paste("'", origfile, "'", sep='')
-                #fread(paste("sed 's/^[[:blank:]]*//;s/[[:blank:]]\\{1,\\}/,/g'", fileName), colClasses = col.classes , header = FALSE)
-                DT <- fread(origfile, sep="\t",  header = FALSE)
+                #check if OS support sed
+                print(paste("support Sed:", supportSed))
+                if(supportSed) {
+                        #quote file name with ''
+                        fileName = paste("'", origfile, "'", sep='')
+                        DT <- fread(paste("sed 's/^[[:blank:]]*//;s/[[:blank:]]\\{1,\\}/,/g'", fileName), colClasses = col.classes , header = FALSE)
+                } else {
+                        #Convert tab-delimited txt file into a csv file
+                        tabData=fread(origfile, sep="\n", header = FALSE)
+                        csvData <- sapply(tabData, convertTabToCsv)
+                        tmpFile = sub("\\.txt$","_tmp\\.csv",origfile)
+                        write.table(csvData, file=tmpFile, sep="", col.names =  FALSE, row.names =  FALSE, quote = FALSE);
+                        
+                        DT <- fread(tmpFile, colClasses = col.classes , sep=",", header = FALSE)
+                        file.remove(tmpFile)
+                }
         } else {
-                #get first 5 rows to get column classes
-                x <- read.table(origfile,  nrows=5, header=FALSE)
-                col.classes <- sapply(x, class)
                 # read table by column classes
                 data <- read.table(origfile, colClasses = col.classes , header = FALSE)
                 DT <- data.table(data)
         }
         return (DT)
 }
+
 
 # getData function combines the train/test one data.table
 # it also checks the column size for each data set
@@ -187,32 +213,4 @@ getTidyData <- function(mergeData) {
                 summarise(mean = mean(value)) 
         
         return (tidyData)
-}
-
-#check library installed then load required library 
-loadLibrary <- function(instpkg) {
-        if(!instpkg %in% installed.packages() ){
-                install.packages(instpkg)
-        }
-        # load require library
-        (require(instpkg, character.only = TRUE))
-}
-
-#load data.table develop version 1.9.5 for fread
-loadDevDataTable <- function(instpkg) {
-        if(!instpkg %in% installed.packages()  ){
-                #install dev version of data.table
-                loadLibrary("devtools")
-                install_github("Rdatatable/data.table", build_vignettes = FALSE)
-        } else {
-                if(packageVersion(instpkg) != "1.9.5") {
-                        #remove package and install development version
-                        remove.packages(instpkg)         # First remove the current version
-                        #install dev version of data.table
-                        loadLibrary("devtools")                        
-                        install_github("Rdatatable/data.table", build_vignettes = FALSE)                        
-                }
-        }
-        #require libryay data.table
-        require(instpkg)
 }

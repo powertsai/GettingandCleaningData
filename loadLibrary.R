@@ -24,5 +24,5 @@ loadDevDataTable <- function(instpkg) {
                 }
         }
         #require libryay data.table
-        require(instpkg)
+        return (require(instpkg, character.only = TRUE))
 }
