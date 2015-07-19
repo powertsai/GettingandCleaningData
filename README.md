@@ -26,18 +26,40 @@
 
 ### Install libraries before running run_analysis.R
 using 3 packages 
-1. dplyr select column
-1. data.table(1.9.5) required OS support sed to convert 
-1. convert merge data to tidy 
+1. using dplyr to select column, group_by, summarise
+1. using data.table(1.9.5) to fread large data file 
+1. using reshape2 to melt merge data into narrow tidy data set 
 ```
 * require dplyr
-install.packages("dplyr") 
-library(dplyr) 
-* require data.table develop version 1.9.5 , remove mark if you want to install develop version of data.table
-#remove.packages("data.table")         
-#library(devtools)    
-#install_github("Rdatatable/data.table", build_vignettes = FALSE) 
-#library(data.table) 
+#check library installed then load required library 
+loadLibrary <- function(pkg) {
+        if(!pkg %in% installed.packages() ){
+                install.packages(pkg)
+        }
+        # load require library
+        (require(pkg, character.only = TRUE))
+}
+#require dplyr to create average value
+loadLibrary("dplyr")
+#require reshape2 to narrow tidy data set
+loadLibrary("reshape2")
+
+if(!"data.table" %in% installed.packages() 
+   || packageVersion("data.table") != "1.9.5" ){
+        #install dev version of data.table
+        if(!"devtools" %in% installed.packages() ){
+                loadLibrary("devtools")
+        }
+        #remove package and install development version
+        remove.packages("data.table")         # First remove the current version
+        install_github("Rdatatable/data.table", build_vignettes = FALSE)
+}
+#require libryay data.table
+require(data.table)
+
+#remove mark #, and switch data.table back to CRAN version
+#remove.packages("data.table")         # First remove the current version
+#install.packages("data.table")        # Then install the CRAN version
 ```
 
 ### How to call run_analysis.R to create tidy data to review  
