@@ -198,7 +198,7 @@ mergeData <- function() {
 #use shape2 library to melt merge data 
 #group by Subject , Activity, Measurement
 #Summaryize value with Mean(value)
-#write tidydata to file at defined tidyfilepath
+#arrange by subject , activity
 getTidyData <- function(mergeData) {
         #use  reshape2 to melt data.table to subject, activity, variable, value
         meltData <- melt(mergeData, id=c("subject","activity"),
@@ -210,7 +210,8 @@ getTidyData <- function(mergeData) {
                 #group by subject,activity, measurement
                 group_by(subject,activity, measurement)  %>%
                 #summarise by mean for each value
-                summarise(mean = mean(value)) 
+                summarise(mean = mean(value)) %>%
+                arrange(subject, activity)
         
         return (tidyData)
 }
