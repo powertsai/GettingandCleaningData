@@ -13,17 +13,18 @@
   1. getLabelName convert activities value to its label name
 1. getFeaturesData extract X_train.txt, x_test.test to get 561-feature variables, and select feature name with (mean|std) 
   1. getFeatures read 561 features names from "features.txt"
-  1. getMeanStdFeatures grep the index of feature name with get "Mean()" and "Std()"
+  1. getMeanStdFeatures grep the index of feature name with get "mean" and "std" (ignore case)
   1. changeDescriptiveName to change feature to be more descriptive (lowercase, remove(), substitute non(a-zA-Z0-9) to .
 1. getSubjectData extract subject_train.txt, subject_test.txt to get the subject who performed the activity
-1. getTriaxialDataMeanSd to extract data files under directory of "Inertial Signals", calcuate the mean and standard deviation of each 128 reading data for each triaxialName 
-  1. "body_acc_x", "body_acc_y","body_acc_z"
-  1. "body_gyro_x", "body_gyro_y", "body_gyro_z"
-  1. "total_acc_x", "total_acc_y", "total_acc_z"
+1. data files under directory of "Inertial Signals" have no column names definition, can't find the data related to mean/standard deviation, didn't implemnt funtion to deal with
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd
   1. [codebook](mergedDataCodeBook.md) for merge data
 1. getTidyData convert the data to another tidy data set with the average of each variable for each activity and each subject
   1. [codebook](tidyDataCodeBook.md) for tidy data
+
+### function defined in loadLibrary.R 
+1. loadLibrary: check if library installed then load the required library
+1. loadDevDataTable: install the data.table version 1.9.5 for using fread to read large data file
 
 ### Install libraries before running run_analysis.R
 using 3 packages 
@@ -31,32 +32,14 @@ using 3 packages
 1. using data.table(1.9.5) to fread large data file 
 1. using reshape2 to melt merge data into narrow tidy data set 
 ```
-* require dplyr
-#check library installed then load required library 
-loadLibrary <- function(pkg) {
-        if(!pkg %in% installed.packages() ){
-                install.packages(pkg)
-        }
-        # load require library
-        (require(pkg, character.only = TRUE))
-}
+setwd("/Users/YourWorkDirectory")  #work directory With loadLibrary.R download from Github
+source("loadLibrary.R")
 #require dplyr to create average value
 loadLibrary("dplyr")
 #require reshape2 to narrow tidy data set
 loadLibrary("reshape2")
-
-if(!"data.table" %in% installed.packages() 
-   || packageVersion("data.table") != "1.9.5" ){
-        #install dev version of data.table
-        if(!"devtools" %in% installed.packages() ){
-                loadLibrary("devtools")
-        }
-        #remove package and install development version
-        remove.packages("data.table")         # First remove the current version
-        install_github("Rdatatable/data.table", build_vignettes = FALSE)
-}
-#require libryay data.table
-require(data.table)
+#require data.table development version 1.9.5
+loadDevDataTable("data.table")
 
 #remove mark #, and switch data.table back to CRAN version
 #remove.packages("data.table")         # First remove the current version
