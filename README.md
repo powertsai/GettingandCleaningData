@@ -8,6 +8,7 @@
 ### function defined in run_analysis.R to created the merge data and tidy data 
 1. getData combine the train/test data into one data.table
   1. getDataTable read data file to data.table
+    1. convertTabToCsv convert tab-delimited txt file format into a csv file format, fread not support multiple space separated
 1. getActivityData extract y_train.txt, y_test.txt convert to descriptive activity label name
   1. getActivityLabels get activity label from "activity_labels.txt" 
   1. getLabelName convert activities value to its label name
@@ -75,7 +76,8 @@ method |  user  | system | elapsed
 1. [David's personal course project FAQ](https://class.coursera.org/getdata-030/forum/thread?thread_id=37)
 2. [Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
-3. [Github Markdown](https://guides.github.com/features/mastering-markdown/)
+3. [Fread tab-delimeterd txt with sed](http://stackoverflow.com/questions/22229109/r-data-table-fread-command-how-to-read-large-files-with-irregular-separators) 
+4. [Github Markdown](https://guides.github.com/features/mastering-markdown/)
 
  
 
