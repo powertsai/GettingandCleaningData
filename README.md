@@ -5,6 +5,16 @@
 1. Uses descriptive activity names to name the activities in the data set
 1. Appropriately labels the data set with descriptive variable names. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+### file in GettingandCleaningData repo
+1. README.md: Read Me for GettingandCleaningData
+2. loadLibrary.R: script used to install require library(dplyr,data.table,reshape2) for running run_analysis.R
+  1. loadLibrary: check if library installed then load the required library 
+  1. loadDevDataTable: install the data.table version 1.9.5 for using fread to read large data file
+3. run_analysis.R: script to merge data and create tidy data set
+4. tidyData.txt: tidy data set to submit for course project
+5. mergedDataCodeBook.md: Code Book for the merge data created at step 4
+6. tidyDataCodeBook.md: Code Book for the Tidy Data Set
+
 ### function defined in run_analysis.R to created the merge data and tidy data 
 1. getData combine the train/test data into one data.table
   1. getDataTable read data file to data.table
@@ -22,10 +32,6 @@
   1. [codebook](mergedDataCodeBook.md) for merge data
 1. getTidyData convert the data to another tidy data set with the average of each variable for each activity and each subject
   1. [codebook](tidyDataCodeBook.md) for tidy data
-
-### function defined in loadLibrary.R 
-1. loadLibrary: check if library installed then load the required library
-1. loadDevDataTable: install the data.table version 1.9.5 for using fread to read large data file
 
 ### Install libraries before running run_analysis.R
 ```
