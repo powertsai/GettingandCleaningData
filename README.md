@@ -94,7 +94,7 @@ method |  user  | system | elapsed
 1. [David's personal course project FAQ](https://class.coursera.org/getdata-030/forum/thread?thread_id=37)
 2. [Citation Request](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
-3. [Github Markdown]How to use Markdown at Github (https://guides.github.com/features/mastering-markdown/)
+3. [Github Markdown](https://guides.github.com/features/mastering-markdown/)
 
  
 
