@@ -27,18 +27,15 @@
 1. loadDevDataTable: install the data.table version 1.9.5 for using fread to read large data file
 
 ### Install libraries before running run_analysis.R
-using 3 packages 
-1. using dplyr to select column, group_by, summarise
-1. using data.table(1.9.5) to fread large data file 
-1. using reshape2 to melt merge data into narrow tidy data set 
 ```
-setwd("/Users/YourWorkDirectory")  #work directory With loadLibrary.R download from Github
+#YourWorkDirectory is the work directory with loadLibrary.R download from Github
+setwd("/Users/YourWorkDirectory")  
 source("loadLibrary.R")
-#require dplyr to create average value
+#require dplyr to select column, group_by, summarise
 loadLibrary("dplyr")
-#require reshape2 to narrow tidy data set
+#require reshape2 to melt merge data into narrow tidy data set 
 loadLibrary("reshape2")
-#require data.table development version 1.9.5
+#require data.table(1.9.5) to fread large data file 
 loadDevDataTable("data.table")
 
 #remove mark #, and switch data.table back to CRAN version
@@ -48,7 +45,8 @@ loadDevDataTable("data.table")
 
 ### How to call run_analysis.R to create tidy data to review  
 ```
-setwd("/Users/YourWorkDirectory")  #work directory With UCI HAR Dataset and run_analysis.R
+#YourWorkDirectory is the work directory with UCI HAR Dataset and run_analysis.R download from Github
+setwd("/Users/YourWorkDirectory") 
 source("run_analysis.R")
 #merge data files in one data set
 system.time(mergeData <- mergetData())
