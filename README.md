@@ -25,7 +25,7 @@
 1. getFeaturesData extract X_train.txt, x_test.test to get 561-feature variables, and select feature name with (mean|std) 
   1. getFeatures read 561 features names from "features.txt"
   1. getMeanStdFeatures grep the index of feature name with get "mean" and "std" (ignore case)
-  1. changeDescriptiveName to change feature to be more descriptive (lowercase, remove(), substitute non(a-zA-Z0-9) to .
+  1. changeDescriptiveName to change feature to be more descriptive (lowercase, remove(), separated noun with ".") 
 1. getSubjectData extract subject_train.txt, subject_test.txt to get the subject who performed the activity
 1. data files under directory of "Inertial Signals" have no column names definition, can't find the data related to mean/standard deviation, didn't implemnt funtion to deal with
 1. mergetData to create one data table with Activity, Subject, Features, TriaxialDataMeanSd
