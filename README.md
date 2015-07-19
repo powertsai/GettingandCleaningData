@@ -66,11 +66,13 @@ file.remove(tidyfilepath)
 ### Time elapsed
 method |  user  | system | elapsed  
 ------ | ------ | ------ | -------
-   1   | 26.778 |  1.120 | 28.847 
-   2   | 45.769 |  0.537 | 46.517 
+   1   | 7.523  |  0.272 | 7.844
+   2   | 10.076 |  0.305 | 10.573
+   3   | 13.708 |  0.190 | 13.965 
 * mthoed 1: use sed to convert tab file to csv then using fread to read data file
-* method 2: use read.table to read data file
-
+* method 2: fread sep="\n" and convert format to csv, write to temp file and use fread to read temp file and remove temp file
+* method 3: use read.table to read data file      
+     
 
 ### Reference
 1. [David's personal course project FAQ](https://class.coursera.org/getdata-030/forum/thread?thread_id=37)
