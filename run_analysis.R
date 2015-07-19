@@ -21,9 +21,6 @@ testTriaxialDir = paste(testdir, "Inertial Signals", sep="/")
 # I use "mean()| std()" to find the features for this case
 grepMeanStd = "mean\\(\\)|std\\(\\)"
 
-#need sed and data.table 1.9.5 to use fread, check user system requirement
-useFread = grep("x86_64-apple", R.Version()$platform) > 0 && packageVersion("data.table") == "1.9.5" 
-print(paste("useFread", useFread, sep="= "))
 
 #get activity label from "activity_labels.txt" 
 getActivityLabels <- function(chkRows = 6) {
@@ -59,17 +56,21 @@ getFeatures <- function(chkRows = 561) {
 #If useFread = TRUE, sed to convert tab to csv format and then using fread to read data
 #If useFread = FALSE, call data.table to read data
 getDataTable <- function(origfile) {
-        x <- read.table(origfile,  nrows=5, header=FALSE)
-        col.classes <- sapply(x, class)
-        
         #embrace filename with ''
+        useFread = (packageVersion("data.table") == "1.9.5" )
         if(useFread) {
-                fileName = paste("'", origfile, "'", sep='')
-                fread(paste("sed 's/^[[:blank:]]*//;s/[[:blank:]]\\{1,\\}/,/g'", fileName), colClasses = col.classes , header = FALSE)
+                #fileName = paste("'", origfile, "'", sep='')
+                #fread(paste("sed 's/^[[:blank:]]*//;s/[[:blank:]]\\{1,\\}/,/g'", fileName), colClasses = col.classes , header = FALSE)
+                DT <- fread(origfile, sep="\t",  header = FALSE)
         } else {
+                #get first 5 rows to get column classes
+                x <- read.table(origfile,  nrows=5, header=FALSE)
+                col.classes <- sapply(x, class)
+                # read table by column classes
                 data <- read.table(origfile, colClasses = col.classes , header = FALSE)
-                data.table(data)
+                DT <- data.table(data)
         }
+        return (DT)
 }
 
 # getData function combines the train/test one data.table
@@ -105,48 +106,6 @@ getMeanStdFeatures <- function(features = getFeatures()) {
 }
 
 
-#getTriaxialDataMeanSd function extract data files under directory of "Inertial Signals"
-# calcuate the mean and standard deviation for each 128 reading data and return data.table
-# parameter 1: triaxialName is 
-#   "body_acc_x", "body_acc_y","body_acc_z", 
-#   "body_gyro_x", "body_gyro_y", "body_gyro_z",
-#   "total_acc_x", "total_acc_y", "total_acc_z"
-# parameter 2: trainfile name is ${triaxialName}_train.txt
-# parameter 3: testfile name is ${triaxialName}_test.txt
-# Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-# Triaxial Angular velocity from the gyroscope. 
-getTriaxialDataMeanSd <- function(
-        triaxialName,
-        trainfile = paste(triaxialName,"train.txt", sep="_"),
-        testfile = paste(triaxialName,"test.txt", sep="_") ){
-        # read Triaxial train file to data frame and convert to data.table
-        xtrain <- getDataTable(paste(trainTriaxialDir, trainfile, sep="/"))
-        
-        # read Triaxial test file to data frame and convert to data.table
-        xtest  <- getDataTable(paste(testTriaxialDir, testfile, sep="/"))
-        
-        # combine train set to one data table
-        xTriaxialSet <-rbind.data.frame(xtrain, xtest)
-        
-        # check columns size 
-        chkColumns = 128
-        if(dim(xTriaxialSet)[2] != chkColumns) {
-                stop("invalid Triaxial Train/Test Set") 
-        }
-        
-        # create row mean for each train/test set 
-        triaialMean <-  rowSums(xTriaxialSet) 
-        
-        # create row standard deviation for each train/test set
-        triaialSd <- apply(xTriaxialSet, 1, sd)
-        # combine mean and sd to one data frame
-        triaialMeanStd <- cbind.data.frame(triaialMean, triaialSd)
-        # set column names
-        names(triaialMeanStd) <- c(paste(triaxialName, "mean", sep="_"), 
-                                   paste(triaxialName, "std", sep="_"))
-        
-        data.table(triaialMeanStd)
-}
 
 #get Subject Data from "subject_train.txt" and  "subject_test.txt"
 #set Column Name to Subject
@@ -183,13 +142,17 @@ getFeaturesData <- function() {
         return (select(xtrain, getMeanStdFeatures(features)))
 }
 
-
+#make the feature name to be more descriptive 
 changeDescriptiveName <- function(featureName) {
-        descName <- gsub("[_\\(\\)-]","", featureName)
+        #substitue text "(" and ")" to empty string
+        descName <- gsub("[\\(\\)]","", featureName)
+        #substitue text non(a-zA-Z0-9) to "_"
+        descName <- gsub("[^(a-zA-Z0-9)]",".", descName)
+        #lower case the feature name
         descName <- tolower(descName)
 }
 
-mergetData <- function() {
+mergeData <- function() {
         #get train/test set's subject: who performed the activity for each window sample from train/test set. 
         #Its range is from 1 to 30. 
         trainData <- getSubjectData()
@@ -202,19 +165,6 @@ mergetData <- function() {
         #column name with mean / std
         xtrain <- getFeaturesData()
         trainData <- cbind(trainData, xtrain)
-        
-        #Read Inertial Signals data for each sensor
-        triaxialNames <- c("body_acc_x","body_acc_y","body_acc_z", 
-                           "body_gyro_x", "body_gyro_y", "body_gyro_z",
-                           "total_acc_x", "total_acc_y", "total_acc_z"
-        )
-        
-        #for each sensor get the the Mean and Standard Deviation from 128 reading data 
-        #cbind the data to trainData
-        for(triaxialName in triaxialNames) {
-                triaxialMeanStd <-  getTriaxialDataMeanSd(triaxialName=triaxialName)
-                trainData <- cbind(trainData, triaxialMeanStd)        
-        }
         return (trainData)
         
 }
@@ -237,4 +187,32 @@ getTidyData <- function(mergeData) {
                 summarise(mean = mean(value)) 
         
         return (tidyData)
+}
+
+#check library installed then load required library 
+loadLibrary <- function(instpkg) {
+        if(!instpkg %in% installed.packages() ){
+                install.packages(instpkg)
+        }
+        # load require library
+        (require(instpkg, character.only = TRUE))
+}
+
+#load data.table develop version 1.9.5 for fread
+loadDevDataTable <- function(instpkg) {
+        if(!instpkg %in% installed.packages()  ){
+                #install dev version of data.table
+                loadLibrary("devtools")
+                install_github("Rdatatable/data.table", build_vignettes = FALSE)
+        } else {
+                if(packageVersion(instpkg) != "1.9.5") {
+                        #remove package and install development version
+                        remove.packages(instpkg)         # First remove the current version
+                        #install dev version of data.table
+                        loadLibrary("devtools")                        
+                        install_github("Rdatatable/data.table", build_vignettes = FALSE)                        
+                }
+        }
+        #require libryay data.table
+        require(instpkg)
 }
